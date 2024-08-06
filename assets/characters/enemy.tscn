@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dut28nkhni3a4"]
+[gd_scene load_steps=14 format=3 uid="uid://dut28nkhni3a4"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_kopcc"]
 [ext_resource type="PackedScene" uid="uid://d2xt6aas2ivpi" path="res://assets/characters/attack.tscn" id="2_jht5b"]
+[ext_resource type="AudioStream" uid="uid://b7gm8rj4hb1se" path="res://src/audio/enemy1.mp3" id="3_s2pry"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7vdij"]
 size = Vector2(92, 114)
@@ -234,12 +235,15 @@ _data = {
 
 [node name="enemy" type="Area2D"]
 monitoring = false
+monitorable = false
 script = ExtResource("1_kopcc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7vdij")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 position = Vector2(0, -3)
 texture = SubResource("PlaceholderTexture2D_xbnym")
 
@@ -251,3 +255,6 @@ libraries = {
 [node name="attackJoint" type="Marker2D" parent="."]
 
 [node name="attack" parent="attackJoint" instance=ExtResource("2_jht5b")]
+
+[node name="move" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_s2pry")

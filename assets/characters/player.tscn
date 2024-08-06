@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://derh6sumhwl84"]
+[gd_scene load_steps=23 format=3 uid="uid://derh6sumhwl84"]
 
 [ext_resource type="Texture2D" uid="uid://bnx3y7l1d1xfn" path="res://src/sprites/mimic/S2.PNG" id="2_v0sjw"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_xijk8"]
@@ -10,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://bhn246qcrv0k5" path="res://src/sprites/mimic/N1.png" id="6_bclc3"]
 [ext_resource type="Texture2D" uid="uid://by8cueiuojevb" path="res://src/sprites/mimic/N2.png" id="7_yt3gx"]
 [ext_resource type="Texture2D" uid="uid://irscqu7pdvty" path="res://src/sprites/mimic/N3.png" id="8_ki4fl"]
+[ext_resource type="AudioStream" uid="uid://leci387fm3kv" path="res://src/audio/move2.mp3" id="11_wasod"]
+[ext_resource type="AudioStream" uid="uid://03l8s4e74jbm" path="res://src/audio/dead1.mp3" id="12_q4k2c"]
+[ext_resource type="AudioStream" uid="uid://dsdkvc78t42t3" path="res://src/audio/move3.mp3" id="12_tbcbx"]
+[ext_resource type="AudioStream" uid="uid://cin1so3cpguxr" path="res://src/audio/coin.mp3" id="14_wbsal"]
 
 [sub_resource type="Animation" id="Animation_iovdy"]
 resource_name = "S"
@@ -291,7 +295,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4s4oo"]
-size = Vector2(92, 114)
+size = Vector2(64, 64)
 
 [node name="player" type="Sprite2D"]
 texture = ExtResource("2_v0sjw")
@@ -315,5 +319,19 @@ shape = SubResource("RectangleShape2D_4s4oo")
 visible = false
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="moveSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_wasod")
+
+[node name="moveSound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_tbcbx")
+volume_db = -10.0
+
+[node name="deathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_q4k2c")
+pitch_scale = 0.53
+
+[node name="coinSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_wbsal")
 
 [connection signal="area_entered" from="Area2D" to="." method="areaEntered"]

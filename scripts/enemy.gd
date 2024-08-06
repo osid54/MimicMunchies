@@ -19,6 +19,7 @@ func _ready():
 	$AnimationPlayer.play("idle")
 
 func move():
+	await get_tree().create_timer(randf_range(0,.3)).timeout
 	var newPos = pos
 	#print(newPos)
 	#print(getDir())
@@ -62,17 +63,23 @@ func move():
 	#$Label.text = str(pos)
 
 func endMove():
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(.1).timeout
+	$move.play()
+	await get_tree().create_timer(.9).timeout
 	$AnimationPlayer.play("idle")
 
 func rot():
-	$attackJoint/attack.monitorable = false
+	#$attackJoint/attack.monitorable = false
+	$attackJoint/attack.disAll()
 	var turn = [-1,1].pick_random()
 	direction += turn
 	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property($attackJoint,"rotation",$attackJoint.rotation+turn*PI/2,1)
-	await get_tree().create_timer(1.0).timeout
-	$attackJoint/attack.monitorable = true
+	await get_tree().create_timer(.1).timeout
+	$move.play()
+	await get_tree().create_timer(.9).timeout
+	#await get_tree().create_timer(1.0).timeout
+	#$attackJoint/attack.monitorable = true
 
 func getDir():
 	return direction % 4

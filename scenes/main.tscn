@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4fjobt72pm1x"]
+[gd_scene load_steps=12 format=3 uid="uid://c4fjobt72pm1x"]
 
 [ext_resource type="Texture2D" uid="uid://bxekqbqvel76e" path="res://src/sprites/tiles.png" id="1_oah7e"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_xlfdq"]
 [ext_resource type="FontFile" uid="uid://c0nigfb1awsp0" path="res://src/fonts/Pumpkins Candles.ttf" id="3_jkstl"]
+[ext_resource type="AudioStream" uid="uid://dtuqcovuas3g3" path="res://src/audio/start1.mp3" id="4_cqjtk"]
+[ext_resource type="AudioStream" uid="uid://0gpvw3obl7bk" path="res://src/audio/ambience.mp3" id="5_mptfx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_25pbl"]
 texture = ExtResource("1_oah7e")
@@ -178,5 +180,12 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_5qdl2")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_5qdl2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_5qdl2")
 text = "munch more"
+
+[node name="start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_cqjtk")
+
+[node name="ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_mptfx")
+autoplay = true
 
 [connection signal="button_up" from="CanvasLayer/end/VBoxContainer/Button" to="." method="playAgain"]

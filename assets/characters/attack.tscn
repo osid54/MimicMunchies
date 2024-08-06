@@ -75,5 +75,3 @@ texture = ExtResource("2_an523")
 visible = false
 polygon = PackedVector2Array(-64, -64, -64, -192, 192, -192, 192, 64, 64, 64, 64, -64)
 disabled = true
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]

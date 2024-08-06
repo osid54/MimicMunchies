@@ -3,6 +3,7 @@ extends Sprite2D
 var dead := false:
 	set(value):
 		dead = value
+		$deathSound.play()
 		mainScene.gameOver()
 var moving := false
 @onready var mainScene = get_parent()
@@ -62,7 +63,13 @@ func move(dir):
 		mainScene.score += 1
 
 func endMove():
-	await get_tree().create_timer(1.0).timeout
+	#await get_tree().create_timer(.6).timeout
+	var pitch = randf_range(0.8,1)
+	$moveSound.pitch_scale = pitch
+	$moveSound.play()
+	$moveSound2.pitch_scale = pitch
+	$moveSound2.play()
+	await get_tree().create_timer(1).timeout
 	$AnimationPlayer.play("idle")
 	if mainScene.get_node("enemies").get_child_count() > 0:
 		mainScene.moveEnemy()
@@ -75,6 +82,7 @@ func endMove():
 func areaEntered(area):
 	if area.isCoin:
 		await get_tree().create_timer(.1).timeout
+		$coinSound.play()
 		area.queue_free()
 		mainScene.makeCoin()
 		mainScene.score += 5

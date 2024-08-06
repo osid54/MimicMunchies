@@ -9,8 +9,18 @@ var score = 0:
 	set(value):
 		score = value
 		%score.text = "SCORE: "+str("%05d" % score)
+var muted := false:
+	set(value):
+		muted = value
+		var bus_idx = AudioServer.get_bus_index("Master")
+		AudioServer.set_bus_mute(bus_idx, muted)
+
+func _process(_delta):
+	if Input.is_action_pressed("mute"):
+		muted = !muted
 
 func _ready():
+	$start.play()
 	$Camera2D.zoom = Vector2(1,1) * 3/4
 	for i in 8:
 		tiles.append([])
