@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4fjobt72pm1x"]
+[gd_scene load_steps=10 format=3 uid="uid://c4fjobt72pm1x"]
 
 [ext_resource type="Texture2D" uid="uid://bxekqbqvel76e" path="res://src/sprites/tiles.png" id="1_oah7e"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_xlfdq"]
+[ext_resource type="FontFile" uid="uid://c0nigfb1awsp0" path="res://src/fonts/Pumpkins Candles.ttf" id="3_jkstl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_25pbl"]
 texture = ExtResource("1_oah7e")
@@ -12,6 +13,34 @@ texture_region_size = Vector2i(128, 128)
 tile_size = Vector2i(128, 128)
 sources/1 = SubResource("TileSetAtlasSource_25pbl")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnhha"]
+bg_color = Color(0.384314, 0.380392, 0.486275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cijj"]
+bg_color = Color(0.384314, 0.380392, 0.486275, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qdl2"]
+bg_color = Color(0.501961, 0.494118, 0.596078, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xp6t2"]
+bg_color = Color(0.548708, 0.5395, 0.65, 1)
+corner_radius_top_left = 64
+corner_radius_top_right = 64
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_xlfdq")
 
@@ -21,7 +50,133 @@ format = 2
 layer_0/tile_data = PackedInt32Array(-131075, 1, 0, -131074, 1, 0, -131073, 1, 0, -196608, 1, 0, -196607, 1, 0, -196606, 1, 0, -131070, 1, 0, -65534, 1, 0, 2, 1, 0, 65538, 1, 0, 65537, 1, 0, 65536, 1, 0, 131071, 1, 0, 131070, 1, 0, 131069, 1, 0, 65533, 1, 0, -3, 1, 0, -65539, 1, 0, -65538, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, 1, 1, 0, 0, 1, 0, 65535, 1, 0, 65534, 1, 0, -2, 1, 0, -1, 1, 0, -65536, 1, 0, -65535, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, -196605, 1, 0, -131069, 1, 0, -65533, 1, 0, 3, 1, 0, 65539, 1, 0, 131075, 1, 0, -131076, 1, 0, -65540, 1, 0, -4, 1, 0, 65532, 1, 0, 131068, 1, 0, 196604, 1, 0, -196613, 1, 0, -131077, 1, 0, -65541, 1, 0, -5, 1, 0, 65531, 1, 0, 131067, 1, 0, 196603, 1, 0, 262139, 1, 0, -196612, 1, 0, 262140, 1, 0, -196611, 1, 0, 262141, 1, 0, -196610, 1, 0, 262142, 1, 0, -196609, 1, 0, 262143, 1, 0, -262144, 1, 0, 196608, 1, 0, -262143, 1, 0, 196609, 1, 0, -262142, 1, 0, 196610, 1, 0, -262141, 1, 0, 196611, 1, 0, -262140, 1, 0, -196604, 1, 0, -131068, 1, 0, -65532, 1, 0, 4, 1, 0, 65540, 1, 0, 131076, 1, 0, 196612, 1, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -32)
 
 [node name="coins" type="Node2D" parent="."]
 
 [node name="enemies" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+z_index = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bnhha")
+
+[node name="score" type="Label" parent="CanvasLayer/Panel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(228, 48)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -21.0
+offset_bottom = 34.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.501961, 0.494118, 0.596078, 1)
+theme_override_fonts/font = ExtResource("3_jkstl")
+theme_override_font_sizes/font_size = 54
+text = "SCORE: 00000"
+vertical_alignment = 1
+
+[node name="title" type="Label" parent="CanvasLayer/Panel"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -21.0
+offset_right = 306.0
+offset_bottom = 34.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.501961, 0.494118, 0.596078, 1)
+theme_override_fonts/font = ExtResource("3_jkstl")
+theme_override_font_sizes/font_size = 54
+text = " MIMIC MUNCHIES"
+vertical_alignment = 1
+
+[node name="fade" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.384314, 0.380392, 0.486275, 1)
+
+[node name="end" type="Panel" parent="CanvasLayer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(512, 512)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(256, 256)
+theme_override_styles/panel = SubResource("StyleBoxFlat_2cijj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/end"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="scoreL" type="Label" parent="CanvasLayer/end/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.501961, 0.494118, 0.596078, 1)
+theme_override_fonts/font = ExtResource("3_jkstl")
+theme_override_font_sizes/font_size = 64
+text = "score:"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="endScore" type="Label" parent="CanvasLayer/end/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.501961, 0.494118, 0.596078, 1)
+theme_override_fonts/font = ExtResource("3_jkstl")
+theme_override_font_sizes/font_size = 256
+text = "00000"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/end/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.384314, 0.380392, 0.486275, 1)
+theme_override_colors/font_pressed_color = Color(0.384314, 0.380392, 0.486275, 1)
+theme_override_colors/font_hover_color = Color(0.384314, 0.380392, 0.486275, 1)
+theme_override_fonts/font = ExtResource("3_jkstl")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_5qdl2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xp6t2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5qdl2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_5qdl2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_5qdl2")
+text = "munch more"
+
+[connection signal="button_up" from="CanvasLayer/end/VBoxContainer/Button" to="." method="playAgain"]

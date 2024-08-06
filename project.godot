@@ -10,16 +10,17 @@ config_version=5
 
 [application]
 
-config/name="MimicMunchies"
+config/name="mimic munchies"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://src/sprites/mimic/S2.PNG"
+config/icon="res://src/sprites/icon.png"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=1024
+window/size/viewport_width=960
+window/size/viewport_height=816
 window/size/resizable=false
+window/size/borderless=true
 
 [filesystem]
 

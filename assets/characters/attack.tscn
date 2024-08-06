@@ -5,7 +5,7 @@
 
 [node name="attack" type="Area2D"]
 collision_layer = 4
-monitorable = false
+monitoring = false
 script = ExtResource("1_jd0co")
 
 [node name="knight" type="CollisionPolygon2D" parent="."]

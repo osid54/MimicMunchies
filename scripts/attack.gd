@@ -1,6 +1,8 @@
 extends Area2D
 
 var eType = 0
+var isEnemy := true
+var isCoin := false
 
 func adjust():
 	match eType:
@@ -15,6 +17,3 @@ func adjust():
 			$mage1.disabled = false
 			$mage2.visible = true
 			$mage2.disabled = false
-
-func _on_area_entered(area):
-	area.get_parent().visible = false

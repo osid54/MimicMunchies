@@ -5,8 +5,13 @@ extends Node2D
 @onready var enemy = preload("res://assets/characters/enemy.tscn")
 
 var tiles := []
+var score = 0:
+	set(value):
+		score = value
+		%score.text = "SCORE: "+str("%05d" % score)
 
 func _ready():
+	$Camera2D.zoom = Vector2(1,1) * 3/4
 	for i in 8:
 		tiles.append([])
 		for j in 10:
@@ -18,9 +23,12 @@ func _ready():
 	add_child(p)
 	
 	makeCoin()
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(%fade,"modulate",Color(1,1,1,0),1)
 
 func makeCoin():
-	if $coins.get_child_count() > 0 and randf() > 0.5:
+	if $coins.get_child_count() > 0 and randf() > 2/3.0:
 		return
 	var cPos = Vector2(randi_range(-4,5),randi_range(-3,4))
 	while !checkTile(cPos,""):
@@ -46,17 +54,29 @@ func makeEnemy(t):
 	e.eType = t
 	$enemies.call_deferred("add_child",e)
 	tiles[ePos.y+3][ePos.x+4] = "enemy"
-	print("enemy")
+	#print("enemy")
 
 func moveEnemy():
 	for e in $enemies.get_children():
-		if randf() >= .80:
+		if randf() >= 2/3.0:
 			e.rot()
 			return
 		e.move()
-	printRows()
+	#printRows()
 
 func printRows():
 	for row in tiles: 
 		print(row)
 	print("")
+
+func gameOver():
+	%endScore.text = str("%05d" % score)
+	var tween = get_tree().create_tween().set_parallel(true).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(%end,"scale",Vector2(1,1),1)
+	tween.tween_property(%end,"modulate",Color.WHITE,1)
+
+func playAgain():
+	var tween = get_tree().create_tween()
+	tween.tween_property(%fade,"modulate",Color.WHITE,1)
+	await get_tree().create_timer(1).timeout
+	get_tree().reload_current_scene()

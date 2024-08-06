@@ -1,0 +1,33 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://co0xjlsux7qvt"
+path="res://.godot/imported/Kisah Horor Sobat.ttf-034bfae9f4da83d432fb7df9e77e8221.fontdata"
+
+[deps]
+
+source_file="res://src/fonts/Kisah Horor Sobat.ttf"
+dest_files=["res://.godot/imported/Kisah Horor Sobat.ttf-034bfae9f4da83d432fb7df9e77e8221.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}

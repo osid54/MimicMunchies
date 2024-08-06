@@ -1,5 +1,9 @@
 extends Sprite2D
 
+var dead := false:
+	set(value):
+		dead = value
+		mainScene.gameOver()
 var moving := false
 @onready var mainScene = get_parent()
 var movesLeft := randi_range(3,7):
@@ -24,6 +28,7 @@ func _ready():
 	#$Label.text = str(pos)
 
 func _process(_delta):
+	if dead: return
 	if not moving:
 		if Input.is_action_pressed("down"):
 			move(Vector2(0,1))
@@ -54,6 +59,7 @@ func move(dir):
 		mainScene.tiles[newPos.y+3][newPos.x+4] = "player"
 		pos = newPos
 		$Label.text = str(pos)
+		mainScene.score += 1
 
 func endMove():
 	await get_tree().create_timer(1.0).timeout
@@ -71,3 +77,7 @@ func areaEntered(area):
 		await get_tree().create_timer(.1).timeout
 		area.queue_free()
 		mainScene.makeCoin()
+		mainScene.score += 5
+	elif area.isEnemy:
+		visible = false
+		dead = true

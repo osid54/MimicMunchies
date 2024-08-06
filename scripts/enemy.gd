@@ -8,16 +8,20 @@ var eType := 0
 var eTypes = ["knight","archer","mage"]
 
 func _ready():
-	print(pos)
+	#print(pos)
 	direction = randi()
+	$attackJoint.rotation = getDir()*PI/2
 	$Sprite2D.texture = load("res://src/sprites/enemies/"+eTypes[eType]+".png")
 	$attackJoint/attack.eType = eType
 	$attackJoint/attack.adjust()
+	$AnimationPlayer.play("spawn")
+	await $AnimationPlayer.animation_finished
+	$AnimationPlayer.play("idle")
 
 func move():
 	var newPos = pos
-	print(newPos)
-	print(getDir())
+	#print(newPos)
+	#print(getDir())
 	match getDir():
 		0:
 			newPos += Vector2(0,-1)
@@ -62,10 +66,13 @@ func endMove():
 	$AnimationPlayer.play("idle")
 
 func rot():
-	var oldD = direction
-	direction += [-1,1].pick_random()
+	$attackJoint/attack.monitorable = false
+	var turn = [-1,1].pick_random()
+	direction += turn
 	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
-	tween.tween_property($attackJoint,"rotation",getDir()*PI/2,1)
+	tween.tween_property($attackJoint,"rotation",$attackJoint.rotation+turn*PI/2,1)
+	await get_tree().create_timer(1.0).timeout
+	$attackJoint/attack.monitorable = true
 
 func getDir():
 	return direction % 4
