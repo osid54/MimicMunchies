@@ -1,20 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxxcnaabxcpk1"]
+[gd_scene load_steps=9 format=3 uid="uid://cxxcnaabxcpk1"]
 
 [ext_resource type="Script" path="res://scripts/coin.gd" id="1_1a5lh"]
+[ext_resource type="Shader" path="res://shaders/float.gdshader" id="2_dcvns"]
+[ext_resource type="Texture2D" uid="uid://bo84vi7e0votf" path="res://src/sprites/coin.png" id="2_vtmev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_auj3j"]
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_p81k8"]
-size = Vector2(32, 32)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vp88h"]
+shader = ExtResource("2_dcvns")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mi0sv"]
+shader = ExtResource("2_dcvns")
+
+[sub_resource type="Gradient" id="Gradient_eitdr"]
+colors = PackedColorArray(0.843137, 0.717647, 0.176471, 0.533333, 0.843137, 0.717647, 0.176471, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uath8"]
+gradient = SubResource("Gradient_eitdr")
+width = 96
+height = 96
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.2)
+metadata/_snap_enabled = true
 
 [node name="coin" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
+monitoring = false
 script = ExtResource("1_1a5lh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_auj3j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("PlaceholderTexture2D_p81k8")
+material = SubResource("ShaderMaterial_vp88h")
+texture = ExtResource("2_vtmev")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_mi0sv")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_uath8")

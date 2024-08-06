@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2xt6aas2ivpi"]
+
+[ext_resource type="Script" path="res://scripts/attack.gd" id="1_jd0co"]
+[ext_resource type="Texture2D" uid="uid://ds26s0huefjbj" path="res://src/sprites/attack.png" id="2_an523"]
+
+[node name="attack" type="Area2D"]
+collision_layer = 4
+monitorable = false
+script = ExtResource("1_jd0co")
+
+[node name="knight" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-192, -192, 192, -192, 192, -64, -192, -64)
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="knight"]
+position = Vector2(0, -128)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D2" type="Sprite2D" parent="knight"]
+position = Vector2(-128, -128)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D3" type="Sprite2D" parent="knight"]
+position = Vector2(128, -128)
+texture = ExtResource("2_an523")
+
+[node name="archer" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-64, -64, -64, -448, 64, -448, 64, -64)
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="archer"]
+position = Vector2(0, -128)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D2" type="Sprite2D" parent="archer"]
+position = Vector2(0, -256)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D3" type="Sprite2D" parent="archer"]
+position = Vector2(0, -384)
+texture = ExtResource("2_an523")
+
+[node name="mage1" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-192, -64, -192, 192, 64, 192, 64, 64, -64, 64, -64, -64)
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="mage1"]
+position = Vector2(0, -128)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D2" type="Sprite2D" parent="mage1"]
+position = Vector2(128, 0)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D3" type="Sprite2D" parent="mage1"]
+position = Vector2(128, -128)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D4" type="Sprite2D" parent="mage1"]
+position = Vector2(-128, 0)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D5" type="Sprite2D" parent="mage1"]
+position = Vector2(0, 128)
+texture = ExtResource("2_an523")
+
+[node name="Sprite2D6" type="Sprite2D" parent="mage1"]
+position = Vector2(-128, 128)
+texture = ExtResource("2_an523")
+
+[node name="mage2" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-64, -64, -64, -192, 192, -192, 192, 64, 64, 64, 64, -64)
+disabled = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

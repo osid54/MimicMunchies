@@ -1,31 +1,71 @@
 extends Area2D
 
-@onready var mainScene = get_parent()
+@onready var mainScene = get_parent().get_parent()
 var pos := Vector2()
+var direction := 0
+var eType := 0
 
-func move(dir):
-	var newPos = pos + Vector2(randi_range(-1,1),randi_range(-1,1))
-	if !mainScene.checkTileWall(newPos):
-		match dir:
-			Vector2(0,1):
+var eTypes = ["knight","archer","mage"]
+
+func _ready():
+	print(pos)
+	direction = randi()
+	$Sprite2D.texture = load("res://src/sprites/enemies/"+eTypes[eType]+".png")
+	$attackJoint/attack.eType = eType
+	$attackJoint/attack.adjust()
+
+func move():
+	var newPos = pos
+	print(newPos)
+	print(getDir())
+	match getDir():
+		0:
+			newPos += Vector2(0,-1)
+			if !mainScene.checkTileWall(newPos):
 				$AnimationPlayer.play("S")
-			Vector2(0,-1):
+			else:
+				rot()
+				return
+		2:
+			newPos += Vector2(0,1)
+			if !mainScene.checkTileWall(newPos):
 				$AnimationPlayer.play("N")
-			Vector2(1,0):
+			else:
+				rot()
+				return
+		3:
+			newPos += Vector2(-1,0)
+			if !mainScene.checkTileWall(newPos):
 				$AnimationPlayer.play("E")
-			Vector2(-1,0):
+			else:
+				rot()
+				return
+		1:
+			newPos += Vector2(1,0)
+			if !mainScene.checkTileWall(newPos):
 				$AnimationPlayer.play("W")
-		var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
-		tween.tween_property(self,"position",position+dir*128,1)
-		endMove()
-		mainScene.tiles[pos.y+3][pos.x+4] = ""
-		mainScene.tiles[newPos.y+3][newPos.x+4] = "player"
-		pos = newPos
-		$Label.text = str(pos)
+			else:
+				rot()
+				return
+		_:
+			print("uh oh")
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self,"position",position+(newPos-pos)*128,1)
+	endMove()
+	mainScene.tiles[pos.y+3][pos.x+4] = ""
+	mainScene.tiles[newPos.y+3][newPos.x+4] = "enemy"
+	pos = newPos
+	#$Label.text = str(pos)
 
 func endMove():
 	await get_tree().create_timer(1.0).timeout
 	$AnimationPlayer.play("idle")
 
 func rot():
-	pass
+	var oldD = direction
+	direction += [-1,1].pick_random()
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property($attackJoint,"rotation",getDir()*PI/2,1)
+
+func getDir():
+	return direction % 4

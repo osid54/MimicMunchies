@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var coin = preload("res://assets/objects/coin.tscn")
 @onready var player = preload("res://assets/characters/player.tscn")
+@onready var enemy = preload("res://assets/characters/enemy.tscn")
 
 var tiles := []
 
@@ -35,11 +36,27 @@ func checkTile(pos,thing):
 func checkTileWall(pos):
 	return pos.x == -5 or pos.x == 6 or pos.y == -4 or pos.y == 5 or checkTile(pos,"enemy")
 
-func makeEnemy():
-	pass
+func makeEnemy(t):
+	var ePos = Vector2(randi_range(-4,5),randi_range(-3,4))
+	while !checkTile(ePos,""):
+		ePos = Vector2(randi_range(-4,5),randi_range(-3,4))
+	var e = enemy.instantiate()
+	e.pos = ePos
+	e.position = Vector2(ePos.x*128-64,ePos.y*128-64)
+	e.eType = t
+	$enemies.call_deferred("add_child",e)
+	tiles[ePos.y+3][ePos.x+4] = "enemy"
+	print("enemy")
 
 func moveEnemy():
-	for enemy in $enemies.get_children():
-		if randf() >= .5:
-			enemy.rot()
-		enemy.move()
+	for e in $enemies.get_children():
+		if randf() >= .80:
+			e.rot()
+			return
+		e.move()
+	printRows()
+
+func printRows():
+	for row in tiles: 
+		print(row)
+	print("")
