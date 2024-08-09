@@ -16,13 +16,14 @@ func _ready():
 	$attackJoint/attack.adjust()
 	$AnimationPlayer.play("spawn")
 	await $AnimationPlayer.animation_finished
+	modulate = Color.WHITE
 	$AnimationPlayer.play("idle")
+
 
 func move():
 	await get_tree().create_timer(randf_range(0,.3)).timeout
 	var newPos = pos
-	#print(newPos)
-	#print(getDir())
+	$attackJoint/attack.disAll()
 	match getDir():
 		0:
 			newPos += Vector2(0,-1)
@@ -69,7 +70,6 @@ func endMove():
 	$AnimationPlayer.play("idle")
 
 func rot():
-	#$attackJoint/attack.monitorable = false
 	$attackJoint/attack.disAll()
 	var turn = [-1,1].pick_random()
 	direction += turn
@@ -78,8 +78,8 @@ func rot():
 	await get_tree().create_timer(.1).timeout
 	$move.play()
 	await get_tree().create_timer(.9).timeout
-	#await get_tree().create_timer(1.0).timeout
-	#$attackJoint/attack.monitorable = true
+	$attackJoint.rotation = getDir()*PI/2
+	$AnimationPlayer.play("idle")
 
 func getDir():
 	return direction % 4

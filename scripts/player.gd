@@ -4,6 +4,7 @@ var dead := false:
 	set(value):
 		dead = value
 		$deathSound.play()
+		$AnimationPlayer.play("dead")
 		mainScene.gameOver()
 var moving := false
 @onready var mainScene = get_parent()
@@ -60,20 +61,20 @@ func move(dir):
 		mainScene.tiles[newPos.y+3][newPos.x+4] = "player"
 		pos = newPos
 		$Label.text = str(pos)
-		mainScene.score += 1
+		mainScene.score += 1 + mainScene.get_node("enemies").get_child_count()
 
 func endMove():
 	#await get_tree().create_timer(.6).timeout
 	var pitch = randf_range(0.8,1)
 	$moveSound.pitch_scale = pitch
 	$moveSound.play()
-	$moveSound2.pitch_scale = pitch
-	$moveSound2.play()
-	await get_tree().create_timer(1).timeout
-	$AnimationPlayer.play("idle")
 	if mainScene.get_node("enemies").get_child_count() > 0:
 		mainScene.moveEnemy()
-		await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(.2).timeout
+	$moveSound2.pitch_scale = pitch
+	$moveSound2.play()
+	await get_tree().create_timer(.8).timeout
+	$AnimationPlayer.play("idle")
 	moving = false
 	movesLeft -= 1
 	enemiesMove -= 1
@@ -85,7 +86,6 @@ func areaEntered(area):
 		$coinSound.play()
 		area.queue_free()
 		mainScene.makeCoin()
-		mainScene.score += 5
+		mainScene.score += int(5*(1+mainScene.get_node("enemies").get_child_count()/2.0))
 	elif area.isEnemy:
-		visible = false
 		dead = true
