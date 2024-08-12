@@ -186,6 +186,7 @@ stream = ExtResource("4_cqjtk")
 
 [node name="ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_mptfx")
+volume_db = -2.0
 autoplay = true
 
 [connection signal="button_up" from="CanvasLayer/end/VBoxContainer/Button" to="." method="playAgain"]

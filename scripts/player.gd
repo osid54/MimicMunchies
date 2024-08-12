@@ -70,10 +70,10 @@ func endMove():
 	$moveSound.play()
 	if mainScene.get_node("enemies").get_child_count() > 0:
 		mainScene.moveEnemy()
-	await get_tree().create_timer(.2).timeout
+	await get_tree().create_timer(.1).timeout
 	$moveSound2.pitch_scale = pitch
 	$moveSound2.play()
-	await get_tree().create_timer(.8).timeout
+	await get_tree().create_timer(.9).timeout
 	$AnimationPlayer.play("idle")
 	moving = false
 	movesLeft -= 1
